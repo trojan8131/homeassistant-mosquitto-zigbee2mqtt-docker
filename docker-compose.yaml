@@ -1,0 +1,39 @@
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: ghcr.io/home-assistant/home-assistant:stable
+    volumes:
+      - /opt/homeassistant/:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
+    restart: always
+    privileged: true
+    network_mode: host
+    environment:
+      - TZ=Europe/Warsaw
+
+  mosquitto:
+    container_name: mosquitto
+    image: eclipse-mosquitto:latest
+    restart: always
+    network_mode: host
+    environment:
+      - TZ=Europe/Warsaw
+    volumes:
+      - /opt/homeassistant/mosquitto/config:/mosquitto/config
+      - /opt/homeassistant/mosquitto/data:/mosquitto/data
+      - /opt/homeassistant/mosquitto/log:/mosquitto/log
+
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    image: koenkk/zigbee2mqtt
+    restart: always
+    network_mode: host
+    environment:
+      - TZ=Europe/Warsaw
+    volumes:
+      - /opt/homeassistant/zigbee2mqtt/config:/app/config
+      - /opt/homeassistant/zigbee2mqtt/data:/app/data
+      - /run/udev:/run/udev:ro
+    devices:
+      - /dev/serial/by-id/usb-Nabu_Casa_Home_Assistant_Connect_ZBT-1_c0639eaee8caed1182a1bf71cda106c3-if00-port0:/dev/ttyUSB0

@@ -1,0 +1,45 @@
+serial:
+  port: /dev/ttyUSB0
+mqtt:
+  base_topic: zigbee2mqtt
+  server: mqtt://localhost:1883
+  client_id: zigbee
+  discovery: true
+  discovery_prefix: homeassistant
+frontend:
+  enabled: true
+  port: 8080
+devices: devices.yaml
+groups: groups.yaml
+homeassistant:
+  enabled: true
+advanced:
+  pan_id: 50051
+  ext_pan_id:
+    - 68
+    - 83
+    - 251
+    - 230
+    - 181
+    - 251
+    - 240
+    - 97
+  network_key:
+    - 215
+    - 182
+    - 108
+    - 202
+    - 53
+    - 17
+    - 233
+    - 52
+    - 163
+    - 51
+    - 62
+    - 198
+    - 102
+    - 20
+    - 73
+    - 123
+  channel: 15
+version: 4
